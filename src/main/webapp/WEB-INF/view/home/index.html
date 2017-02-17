@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Merry Christmas</title>
+        <meta charset="utf-8" />
+	</head>
+	<body>
+	 <div class="bird birdFly"></div>
+	 <script type="text/javascript">
+		var docEl = document.documentElement,
+		    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		    recalc = function() {
+		        //设置根字体大小
+		        docEl.style.fontSize = 20 * (docEl.clientWidth / 320) + 'px';
+		    };
+		
+		//绑定浏览器缩放与加载时间
+		window.addEventListener(resizeEvt, recalc, false);
+		document.addEventListener('DOMContentLoaded', recalc, false);
+		</script>
+	</body>
+</html>

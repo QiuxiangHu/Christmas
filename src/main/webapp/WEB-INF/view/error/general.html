@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head th:fragment="head">
+    <title>出错了</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<div th:fragment="content">
+    <div th:replace="fragments/alert :: alert (type='danger', message=${errorMessage})">Error: Error</div>
+    <div th:replace="fragments/alert :: alert (type='info', message=${stackTrace})">Stack</div>
+</div>
+
+</body>
+
+</html>

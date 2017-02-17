@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<div class="content-left" th:fragment="left">
+		<ul id="leftMenu" th:if="${#authentication} !=null " class="first-menu" 
+			th:with="url=${#httpServletRequest.getServletPath()},subMenu=${#authentication.principal.getSubMenu(url)},curMenuId=${#authentication.principal.getCurMenuId()}" >			
+			<li th:each="menu : ${subMenu.getChildren()}" th:class="${curMenuId}==${menu.id} ? 'current':''">
+				<a th:href="${menu.href}!=null ? @{${menu.href}}:'#'">
+				 <i th:if="${menu.icon} != null" th:class="${'glyphicon ' + menu.icon}"></i>
+				 <span th:text="${menu.name}">首页 </span>
+				</a>				
+				<ul th:if="${menu.getChildren().size()} >0 " th:id="${'menu_left_'+menu.id}" class="second-menu">
+					<li th:each="leafMenu : ${menu.getChildren()}" th:class="${curMenuId}==${leafMenu.id}?'current':''" th:if="${leafMenu.status}==1">					
+					<a th:href="@{${leafMenu.href}}">
+					<span th:text="${leafMenu.name}">详细页 </span></a></li>
+				</ul>
+			</li>
+		</ul>
+		<script type="text/javascript">
+		 $(function () { 
+			 if($('.second-menu').size()>0){
+				 $('.second-menu').each(function () {
+					  if($(this).children().size()==0) $(this).remove();
+				 });
+				$('.second-menu>li.current').parent().parent().addClass("current");
+				$('.first-menu>li.current>.second-menu').stop().slideDown();
+				
+			 	$(".first-menu>li").on('click', function(event) {					
+					$(".first-menu>li").removeClass("current");
+					$(this).addClass("current");
+					var $submenu = $(this).children(".second-menu");
+					if($submenu.length>0){
+						$(".second-menu").stop().slideUp(300);
+						$(this).children(".second-menu").stop().slideDown(300);
+					}
+				});
+			 }
+		 });
+		</script>
+	</div>
+	
+	
+	<ol th:if="${#authentication} !=null " class="breadcrumb" th:fragment="breadcrumb" th:with="url=${#httpServletRequest.getServletPath()}" >
+	  <li th:each="menu : ${#authentication.principal.getBreadcrumb(url)}" th:classappend="${menu.href != url}? 'parent'">	  
+	  	<a th:if="${menu.href}!=null and ${menu.status}!=2" th:href="@{${menu.href}}" th:text="${menu.name}">导航</a>
+	  	<span th:if="${menu.href}==null or ${menu.status}==2" th:text="${menu.name}">导航</span>
+	  </li>
+	</ol>
+</body>
+</html>

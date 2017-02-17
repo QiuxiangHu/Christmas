@@ -1,0 +1,53 @@
+.bird {
+     min-width: 1rem;
+     min-height: 1rem;
+     top: 10%;
+     position: absolute;
+     z-index: 10;
+     background-image: url(../images/bird.png);
+     background-size: 300% 100%;
+ }
+ .birdFly {
+     animation: bird-slow 400ms steps(3) infinite;
+ }
+ 
+ @-webkit-keyframes bird-slow {
+        0% {
+            background-position: -0% 0%;
+        }
+        100% {
+            background-position: -300% 0%;
+        }
+    }
+    
+    @-moz-keyframes bird-slow {
+        0% {
+            background-position: -0% 0%;
+        }
+        50% {
+            background-position: -100% 0%;
+        }
+        75% {
+            background-position: -200% 0%;
+        }
+        100% {
+            background-position: -300% 0%;
+        }
+    }
+    
+    .card {
+        width: 200px;
+        height: 260px;
+        position: relative;
+        -webkit-perspective: 700px;
+        -webkit-transform-style: preserve-3d;
+        -moz-perspective: 700px;
+        -moz-transform-style: preserve-3d;
+    }
+    #card {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        /*?*/
+        background-color: red;
+    }

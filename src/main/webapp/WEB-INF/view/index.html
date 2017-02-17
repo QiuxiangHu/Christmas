@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head th:fragment="head">
+    <title tiles:fragment="title">Merry Christmas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+	<body>
+	<div th:fragment="content">
+	<section class="card">
+        <div id="card">
+        </div>
+    </section>
+    <div class="bird birdFly"></div>
+	 <script type="text/javascript">
+	 
+		 $(".bird").transition({
+			    'right': "10rem",
+			});
+		var docEl = document.documentElement,
+		    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		    recalc = function() {
+		        //设置根字体大小
+		        docEl.style.fontSize = 20 * (docEl.clientWidth / 320) + 'px';
+		    };
+		
+		//绑定浏览器缩放与加载时间
+		window.addEventListener(resizeEvt, recalc, false);
+		document.addEventListener('DOMContentLoaded', recalc, false);
+		</script>
+	</div>
+</body>
+</html>
