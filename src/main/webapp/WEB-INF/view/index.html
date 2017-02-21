@@ -6,27 +6,92 @@
 </head>
 	<body>
 	<div th:fragment="content">
-	<section class="card">
-        <div id="card">
-        </div>
+    <section class="pages">
+        <!-- 第一幅画面 -->
+        <section class="page-a bg-adaptive">
+        </section>
+        <!-- 第二幅画面 -->
+        <section class="page-b bg-adaptive">
+        </section>
+        <!-- 第三幅画面 -->
+        <section class="page-c bg-adaptive">
+        </section>
     </section>
+    选择页面：
+    <select id="page">
+        <option value="page-a" selected>1</option>
+        <option value="page-b">2</option>
+        <option value="page-c">3</option>
+    </select>
     <div class="bird birdFly"></div>
 	 <script type="text/javascript">
 	 
+	 function changePage(element,effect,callback){
+		    element
+		        .addClass(effect)
+		        .one("animationend webkitAnimationEnd", function() {
+		            callback && callback();
+		        })
+		}
+
+
+		/**
+		 * 中间调用
+		 */
+		var Christmas = function() {
+		    //页面容器元素
+		    var $pageA = $(".page-a");
+		    var $pageB = $(".page-b");
+		    var $pageC = $(".page-c");
+
+		    //切换切换
+		    $("#page").on("change", function(e) {
+		        //页面名称
+		        var pageName = e.target.value;  
+		        switch (pageName) {
+		            case "page-b":
+		                //切换到页面B，然后捕获到切换后的通知
+		                changePage($pageA, "effect-out", function() {});
+		                break;
+		            case "page-c":
+		                //切换到页面C，然后捕获到切换后的通知
+		                changePage($pageC, "effect-in", function() {});
+		                break;
+		        }
+		    })
+
+		};
+
+		$(function() {
+		    //圣诞主题效果，开始
+		    Christmas();
+		})
+	    var doc = document;
 		 $(".bird").transition({
 			    'right': "10rem",
-			});
-		var docEl = document.documentElement,
-		    resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-		    recalc = function() {
-		        //设置根字体大小
+			});    
+		 
+	    /**
+	     * 针对content中的html文本框
+	     * 增加rem的修改
+	     * @param  {[type]} doc [description]
+	     * @param  {[type]} win [description]
+	     * @return {[type]}     [description]
+	     */
+	    var docEl = doc.documentElement,
+	        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+	        recalc = function() {
+	            //自适应设置容器高度
+	            var container = document.querySelector(".pages")
+	                //原始比例
+	            var proportion = 900 / 1440;
+	            container.style.height = container.clientWidth * proportion + "px";
+	            //设置根字体大小
 		        docEl.style.fontSize = 20 * (docEl.clientWidth / 320) + 'px';
-		    };
-		
-		//绑定浏览器缩放与加载时间
-		window.addEventListener(resizeEvt, recalc, false);
-		document.addEventListener('DOMContentLoaded', recalc, false);
-		</script>
+	        };
+	    window.addEventListener(resizeEvt, recalc, false);
+	    doc.addEventListener('DOMContentLoaded', recalc, false);
+		</script>		
 	</div>
 </body>
 </html>
