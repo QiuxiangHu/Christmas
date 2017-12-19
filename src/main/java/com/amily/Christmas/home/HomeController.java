@@ -13,4 +13,9 @@ public class HomeController {
     public String index(Principal principal) {  	
         return "index";
     }
+    
+    @RequestMapping(value = "/star", method = RequestMethod.GET)
+    public String star(Principal principal) {  	
+        return "star";
+    }
 }
